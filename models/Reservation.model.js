@@ -15,8 +15,8 @@ const reservationSchema = new Schema({
         required: true,
       },   
     
-    user: {type: Schema.Types.userId, ref: 'User'  },
-    venue: { type: Schema.Types.venueId, ref: 'Venue' }
+    owner: [{type: Schema.Types.OjectId, ref: 'User'  }],
+    venue: [{ type: Schema.Types.ObjectId, ref: 'Venue' }]
 });
 
 module.exports = model('Reservation', reservationSchema);
