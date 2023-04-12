@@ -6,17 +6,18 @@ const reservationSchema = new Schema({
         type: String,
         required: true,
     },
-    wedingDate: {
+    weddingDate: {
         type: Date,
-        get: wedingDate => wedingDate.toDateString()
+        get: wedingDate => wedingDate.toDateString(),
+        unique: true
     },
       guestsNumber: {
         type: Number,
         required: true,
       },   
     
-    owner: [{ type: Schema.Types.ObjectId, ref: 'User'  }],
-    venue: [{ type: Schema.Types.ObjectId, ref: 'Venue' }]
+    owner: { type: Schema.Types.ObjectId, ref: 'User'  },
+    venue: { type: Schema.Types.ObjectId, ref: 'Venue' }
 });
 
 module.exports = model('Reservation', reservationSchema);

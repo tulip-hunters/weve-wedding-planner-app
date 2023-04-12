@@ -34,10 +34,10 @@ const venueSchema = new Schema ({
         type: Schema.Types.ObjectId,
         ref: "Reservation",
     }],
-    owner: [{
+    owner: {
         type: Schema.Types.ObjectId,
         ref: "User",
-    }]
+    }
 })
 
 module.exports = model('Venue', venueSchema);
