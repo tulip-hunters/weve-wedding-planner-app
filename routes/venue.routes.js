@@ -8,9 +8,9 @@ const { response } = require("express");
 
 //CREATE venue
 router.post("/venues", (req, res, next) => {
-    const { name, description, address, price, capacity, imageUrl, offers } = req.body;
+    const { name, description, address, price, capacity, imageUrl, offers, reservation, owner } = req.body;
 
-    Venue.create({name, description, address, price, capacity, imageUrl, offers })
+    Venue.create({name, description, address, price, capacity, imageUrl, offers, reservation: [], owner: [] })
     .then(response => res.status(201).json(response))
     .catch(err => {
         console.log("error creating a new venue", err);
@@ -24,7 +24,7 @@ router.post("/venues", (req, res, next) => {
 //DISPLAY ALL venues
 router.get("/venues", (req, res, next) => {
     Venue.find()
-    .populate("reservations")
+    //.populate("reservations")
     .then(venuesFromDB => {
         res.json(venuesFromDB);
     })
@@ -47,7 +47,7 @@ router.get("/venues/:venueId", (req, res, next) => {
     }
 
     Venue.findById(venueId)
-    .populate('reservations')
+    //.populate('reservations')
     .then(venue => res.json(venue))
     .catch(err => {
         console.log("error getting details of a venue", err);
