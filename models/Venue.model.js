@@ -18,7 +18,7 @@ const venueSchema = new Schema ({
         type: Number,
         required: true,
     },
-    capaity: {
+    capacity: {
         type: Number,
         required: true,
     },
@@ -40,4 +40,4 @@ const venueSchema = new Schema ({
     }]
 })
 
-module.esports = model('Venue', venueSchema);
+module.exports = model('Venue', venueSchema);

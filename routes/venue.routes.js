@@ -8,9 +8,9 @@ const { response } = require("express");
 
 //CREATE venue
 router.post("/venues", (req, res, next) => {
-    const { name, description, address, price, capacity, imageUrl, offers, reservation, owner } = req.body;
+    const { name, description, address, price, capacity, imageUrl, offers } = req.body;
 
-    Venue.create({name, description, address, price, capacity, imageUrl, offers, reservation: [], owner: [] })
+    Venue.create({name, description, address, price, capacity, imageUrl, offers })
     .then(response => res.status(201).json(response))
     .catch(err => {
         console.log("error creating a new venue", err);
