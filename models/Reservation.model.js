@@ -11,11 +11,11 @@ const reservationSchema = new Schema({
         get: wedingDate => wedingDate.toDateString()
     },
       guestsNumber: {
-        type: number,
+        type: Number,
         required: true,
       },   
     
-    owner: [{type: Schema.Types.OjectId, ref: 'User'  }],
+    owner: [{ type: Schema.Types.ObjectId, ref: 'User'  }],
     venue: [{ type: Schema.Types.ObjectId, ref: 'Venue' }]
 });
 

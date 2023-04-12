@@ -59,40 +59,40 @@ router.get("/venues/:venueId", (req, res, next) => {
 });
 
 //UPDATE venue
-router.put('/venues/:venueId', (req, res, next) => {
-    const { venueId } = req.params;
+// router.put('/venues/:venueId', (req, res, next) => {
+//     const { venueId } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(venueId)) {
-        res.status(400).json({ message: 'Specified id is not valid' });
-        return;
-    }
+//     if (!mongoose.Types.ObjectId.isValid(venueId)) {
+//         res.status(400).json({ message: 'Specified id is not valid' });
+//         return;
+//     }
 
-    Venue.findByIdAndUpdate(venueId, req.body, { new: true })
-        .then((updatedVenue) => res.json(updatedVenue))
-        .catch(err => {
-            console.log("error getting details of a venue", err);
-            res.status(500).json({
-                message: "error getting details of a venue",
-                error: err
-            });
-        })
-});
+//     Venue.findByIdAndUpdate(venueId, req.body, { new: true })
+//         .then((updatedVenue) => res.json(updatedVenue))
+//         .catch(err => {
+//             console.log("error getting details of a venue", err);
+//             res.status(500).json({
+//                 message: "error getting details of a venue",
+//                 error: err
+//             });
+//         })
+// });
 
 //DELETE venue
-router.delete('/venues/:venueId', (req, res, next) => {
-    const { venueId } = req.params;
+// router.delete('/venues/:venueId', (req, res, next) => {
+//     const { venueId } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(venueId)) {
-        res.status(400).json({ message: 'Specified id is not valid' });
-        return;
-    }
+//     if (!mongoose.Types.ObjectId.isValid(venueId)) {
+//         res.status(400).json({ message: 'Specified id is not valid' });
+//         return;
+//     }
 
-    Venue.findByIdAndRemove(venueId)
-    .then( deletedVenue => {
-      return Reservation.deleteMany( { _id: { $in: deletedVenue.reservations } } );
-    })
-    .then(() => res.json({ message: `Venue with id ${venueId} & all associated reservations were removed successfully.` }))
-    .catch(error => res.status(500).json(error));
-});
+//     Venue.findByIdAndRemove(venueId)
+//     .then( deletedVenue => {
+//       return Reservation.deleteMany( { _id: { $in: deletedVenue.reservations } } );
+//     })
+//     .then(() => res.json({ message: `Venue with id ${venueId} & all associated reservations were removed successfully.` }))
+//     .catch(error => res.status(500).json(error));
+// });
 
 module.exports = router;
