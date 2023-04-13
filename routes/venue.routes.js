@@ -3,11 +3,14 @@ const mongoose = require("mongoose");
 
 const Venue = require("../models/Venue.model")
 const Reservation = require("../models/Reservation.model");
-const { response } = require("express");
+
+
+const attachCurrentUser = require("../middleware/attachCurrentUser");
+const { isAuthenticated } = require("../middleware/jwt.middleware")
 
 
 //CREATE venue
-router.post("/venues", (req, res, next) => {
+router.post("/venues", attachCurrentUser, isAuthenticated, (req, res, next) => {
     const { name, description, address, price, capacity, imageUrl, offers } = req.body;
 
     Venue.create({name, description, address, price, capacity, imageUrl, offers, reservation: [], owner: [] })
@@ -24,7 +27,7 @@ router.post("/venues", (req, res, next) => {
 //DISPLAY ALL venues
 router.get("/venues", (req, res, next) => {
     Venue.find()
-    //.populate("reservations")
+    .populate("reservations")
     .then(venuesFromDB => {
         res.json(venuesFromDB);
     })
@@ -47,7 +50,7 @@ router.get("/venues/:venueId", (req, res, next) => {
     }
 
     Venue.findById(venueId)
-    //.populate('reservations')
+    .populate('reservations')
     .then(venue => res.json(venue))
     .catch(err => {
         console.log("error getting details of a venue", err);
@@ -59,7 +62,7 @@ router.get("/venues/:venueId", (req, res, next) => {
 });
 
 //UPDATE venue
-// router.put('/venues/:venueId', (req, res, next) => {
+// router.put('/venues/:venueId', attachCurrentUser, isAuthenticated, (req, res, next) => {
 //     const { venueId } = req.params;
 
 //     if (!mongoose.Types.ObjectId.isValid(venueId)) {
@@ -79,7 +82,7 @@ router.get("/venues/:venueId", (req, res, next) => {
 // });
 
 //DELETE venue
-// router.delete('/venues/:venueId', (req, res, next) => {
+// router.delete('/venues/:venueId', attachCurrentUser, isAuthenticated, (req, res, next) => {
 //     const { venueId } = req.params;
 
 //     if (!mongoose.Types.ObjectId.isValid(venueId)) {
