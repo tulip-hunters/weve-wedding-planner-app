@@ -27,7 +27,7 @@ const venueSchema = new Schema({
     required: true,
   },
   offers: {
-    type: String,
+    type: [String],
     enum: [
       "dj",
       "jazz band",
