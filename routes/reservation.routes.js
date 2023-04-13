@@ -10,9 +10,9 @@ const { isAuthenticated } = require("../middleware/jwt.middleware")
 
 
 //Create Reservation
-router.post("/reservations", isAuthenticated, attachCurrentUser, ( req, res, next ) => {
-    const { title, weddingDate, guestsNumber, venueId } = req.body;
-
+router.post("/reservations", isAuthenticated, ( req, res, next ) => {
+    const { title, weddingDate, guestsNumber, venue } = req.body;
+console.log(req.payload)
     if (!weddingDate) {
         return res.status(400).json({ message: "Please provide Wedding date" });
       } else if (!title) {
@@ -23,9 +23,9 @@ router.post("/reservations", isAuthenticated, attachCurrentUser, ( req, res, nex
           .json({ message: "Please provide number of guests" });
       }
 
-    Reservation.create({title, weddingDate, guestsNumber, userId: req.currentUser._id, venue: venueId })
-    .then(reservationFromDB => {
-        return Venue.findByIdAndUpdate(venueId, { $push: { reservations: reservationFromDB._id } });
+    Reservation.create({title, weddingDate, guestsNumber, user: req.payload._id, venue })
+    .then(newReservation => {
+        return Venue.findByIdAndUpdate(venue, { $push: { reservations: newReservation._id } });
     })
     .then(response => res.status(201).json(response))
     .catch(err => {

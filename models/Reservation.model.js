@@ -16,7 +16,7 @@ const reservationSchema = new Schema({
         required: true,
       },   
     
-    owner: { type: Schema.Types.ObjectId, ref: 'User'  },
+    user: { type: Schema.Types.ObjectId, ref: 'User'  },
     venue: { type: Schema.Types.ObjectId, ref: 'Venue' }
 });
 
