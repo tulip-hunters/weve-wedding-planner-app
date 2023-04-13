@@ -18,7 +18,7 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Name is required."],
     },
-    reservationList: [{ type: Types.ObjectId, ref: "Reservation" }]
+    reservationList: [{ type: Schema.Types.ObjectId, ref: "Reservation" }]
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
