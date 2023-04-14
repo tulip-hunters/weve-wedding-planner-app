@@ -25,6 +25,8 @@ const venueSchema = new Schema({
   imageUrl: {
     type: String,
     required: true,
+  //   defaultImageUrl =
+  // "https://images.pexels.com/photos/12846017/pexels-photo-12846017.jpeg";
   },
   offers: {
     type: [String],
