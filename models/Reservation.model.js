@@ -4,16 +4,16 @@ const { Schema, model } = mongoose;
 const reservationSchema = new Schema({
   title: {
     type: String,
-    required: true,
+    required: [true, "Please type your names"]
   },
   weddingDate: {
     type: Date,
     get: (wedingDate) => wedingDate.toDateString(),
-    unique: true,
+    unique: [true, "Please select another date. We are booked for this date already."]
   },
   guestsNumber: {
     type: Number,
-    required: true,
+    required: [true, "Please check venue capacity."]
   },
 
   user: { type: Schema.Types.ObjectId, ref: "User" },

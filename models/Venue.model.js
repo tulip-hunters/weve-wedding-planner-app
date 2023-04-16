@@ -8,19 +8,19 @@ const venueSchema = new Schema({
   },
   description: {
     type: String,
-    required: true,
+    required: [true, "Description is required"],
   },
   address: {
     type: String,
-    required: true,
+    required: [true, "Address is required"],
   },
   price: {
     type: Number,
-    required: true,
+    required: [true, "Price is required"],
   },
   capacity: {
     type: Number,
-    required: true,
+    required: [true, "Capacity is required"],
   },
   imageUrl: {
     type: String,
