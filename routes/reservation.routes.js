@@ -3,13 +3,14 @@ const mongoose = require("mongoose");
 
 const Reservation = require("../models/Reservation.model");
 const Venue = require("../models/Venue.model");
+const User = require("../models/User.model")
 
 const attachCurrentUser = require("../middleware/attachCurrentUser");
 const { isAuthenticated } = require("../middleware/jwt.middleware");
 
 //Create Reservation
 router.post("/reservations", isAuthenticated, (req, res, next) => {
-  const { title, weddingDate, guestsNumber, venue } = req.body;
+  const { title, weddingDate, guestsNumber, venue, user } = req.body;
   console.log(req.payload);
   if (!weddingDate) {
     return res.status(400).json({ message: "Please provide Wedding date" });
@@ -28,6 +29,11 @@ router.post("/reservations", isAuthenticated, (req, res, next) => {
   })
     .then((newReservation) => {
       return Venue.findByIdAndUpdate(venue, {
+        $push: { reservations: newReservation._id },
+      });
+    })
+    .then((newReservation) => {
+      return User.findByIdAndUpdate(user, {
         $push: { reservations: newReservation._id },
       });
     })
