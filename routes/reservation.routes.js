@@ -9,7 +9,7 @@ const attachCurrentUser = require("../middleware/attachCurrentUser");
 const { isAuthenticated } = require("../middleware/jwt.middleware");
 
 //Create Reservation
-router.post("/reservations", isAuthenticated, (req, res, next) => {
+router.post("/reservations", isAuthenticated, async (req, res, next) => {
   const { title, weddingDate, guestsNumber, venue, user } = req.body;
   console.log(req.payload);
   if (!weddingDate) {
@@ -20,31 +20,30 @@ router.post("/reservations", isAuthenticated, (req, res, next) => {
     return res.status(400).json({ message: "Please provide number of guests" });
   }
 
-  Reservation.create({
+try {
+  const reservation = await Reservation.create({
     title,
     weddingDate,
     guestsNumber,
     user: req.payload._id,
     venue,
   })
-    .then((newReservation) => {
-      return Venue.findByIdAndUpdate(venue, {
-        $push: { reservations: newReservation._id },
-      });
-    })
-    .then((newReservation) => {
-      return User.findByIdAndUpdate(user, {
-        $push: { reservations: newReservation._id },
-      });
-    })
-    .then((response) => res.status(201).json(response))
-    .catch((err) => {
-      console.log("error creating a new reservation", err);
-      res.status(500).json({
-        message: "error creating a new reservation",
-        error: err,
-      });
-    });
+
+   const updateVenue = await Venue.findByIdAndUpdate(venue, {
+    $push: { reservations: reservation._id }}, {new: true}
+  );
+
+  const userUpdate = await User.findByIdAndUpdate(user, {
+    $push: { reservations: reservation._id }}, {new: true}
+  );
+    
+  return res.status(201).json(reservation)
+} catch (error) {
+  console.log(error)
+  return res.status(500).json(error)
+}
+
+  
 });
 
 // All User Reservations
