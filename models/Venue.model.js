@@ -30,7 +30,6 @@ const venueSchema = new Schema({
     enum: [
       "dj",
       "jazz band",
-      "folk group",
       "photo box",
       "kids entertainer",
       "dancefloor",
@@ -38,10 +37,9 @@ const venueSchema = new Schema({
       "outdoor ceremeony",
       "indoor ceremony",
       "fireworks",
+      "other"
     ],
   },
-  comments: [String],
-  likes: { type: Number, default: 0 },
   reservations: [
     {
       type: Schema.Types.ObjectId,
