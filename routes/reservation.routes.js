@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const Reservation = require("../models/Reservation.model");
 const Venue = require("../models/Venue.model");
-const User = require("../models/User.model")
+const User = require("../models/User.model");
 
 const attachCurrentUser = require("../middleware/attachCurrentUser");
 const { isAuthenticated } = require("../middleware/jwt.middleware");
@@ -20,30 +20,36 @@ router.post("/reservations", isAuthenticated, async (req, res, next) => {
     return res.status(400).json({ message: "Please provide number of guests" });
   }
 
-try {
-  const reservation = await Reservation.create({
-    title,
-    weddingDate,
-    guestsNumber,
-    user: req.payload._id,
-    venue,
-  })
+  try {
+    const reservation = await Reservation.create({
+      title,
+      weddingDate,
+      guestsNumber,
+      user: req.payload._id,
+      venue,
+    });
 
-   const updateVenue = await Venue.findByIdAndUpdate(venue, {
-    $push: { reservations: reservation._id }}, {new: true}
-  );
+    const updateVenue = await Venue.findByIdAndUpdate(
+      venue,
+      {
+        $push: { reservations: reservation._id },
+      },
+      { new: true }
+    );
 
-  const userUpdate = await User.findByIdAndUpdate(user, {
-    $push: { reservations: reservation._id }}, {new: true}
-  );
-    
-  return res.status(201).json(reservation)
-} catch (error) {
-  console.log(error)
-  return res.status(500).json(error)
-}
+    const userUpdate = await User.findByIdAndUpdate(
+      user,
+      {
+        $push: { reservations: reservation._id },
+      },
+      { new: true }
+    );
 
-  
+    return res.status(201).json(reservation);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error);
+  }
 });
 
 // All User Reservations

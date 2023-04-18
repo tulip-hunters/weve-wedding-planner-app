@@ -2,7 +2,6 @@ const router = require("express").Router();
 const mongoose = require("mongoose");
 
 const Venue = require("../models/Venue.model");
-const Reservation = require("../models/Reservation.model");
 
 const attachCurrentUser = require("../middleware/attachCurrentUser");
 const { isAuthenticated } = require("../middleware/jwt.middleware");
@@ -12,15 +11,15 @@ const fileUploader = require("../config/cloudinary.config");
 // POST "/api/upload" => Route that receives the image, sends it to Cloudinary via the fileUploader and returns the image URL
 router.post("/upload", fileUploader.single("imageUrl"), (req, res, next) => {
   // console.log("file is: ", req.file)
- 
+
   if (!req.file) {
     next(new Error("No file uploaded!"));
     return;
   }
-  
+
   // Get the URL of the uploaded file and send it as a response.
   // 'fileUrl' can be any name, just make sure you remember to use the same when accessing it on the frontend
-  
+
   res.json({ fileUrl: req.file.path });
 });
 
@@ -87,23 +86,7 @@ router.get("/venues/:venueId", (req, res, next) => {
     });
 });
 
-//Add comments to venue
-// router.post("/venues/:venueId", isAuthenticated, (req, res, next) => {
-//     const { comment, numberOfLikes, venueId } = req.body;
-
-//     Venue.findByIdAndUpdate(venueId, { $push: { comments: comment },
-//     likes: numberOfLikes})
-//     .then((response) => res.json(response))
-//     .catch((err) => {
-//         console.log("error creating a new comment...", err);
-//         res.status(500).json({
-//           message: "error creating a new comment",
-//           error: err,
-//         });
-//     });
-// })
-
-////UPDATE venue
+//UPDATE venue
 router.put(
   "/venues/:venueId",
   isAuthenticated,

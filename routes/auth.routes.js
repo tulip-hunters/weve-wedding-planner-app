@@ -122,9 +122,9 @@ router.post("/login", (req, res, next) => {
 router.get("/verify", isAuthenticated, async (req, res, next) => {
   // If JWT token is valid the payload gets decoded by the
   // isAuthenticated middleware and is made available on `req.payload`
-  const user = await User.findById(req.payload._id).populate('reservations')
-  delete user._doc.password
- console.log(user)
+  const user = await User.findById(req.payload._id).populate("reservations");
+  delete user._doc.password;
+  console.log(user);
   // Send back the token payload object containing the user data
   res.status(200).json(user);
 });

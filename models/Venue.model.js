@@ -24,23 +24,20 @@ const venueSchema = new Schema({
   },
   imageUrl: {
     type: String,
-    required: true,
-  //   defaultImageUrl =
-  // "https://images.pexels.com/photos/12846017/pexels-photo-12846017.jpeg";
   },
   offers: {
     type: [String],
     enum: [
-      "dj" ,
-      "jazz band" ,
-      "folk group" ,
-      "photo box" ,
-      "kids entertainer" ,
-      "dancefloor" ,
-      "guestrooms" ,
-      "outdoor ceremeony" ,
-      "indoor ceremony" ,
-      "fireworks"
+      "dj",
+      "jazz band",
+      "folk group",
+      "photo box",
+      "kids entertainer",
+      "dancefloor",
+      "guestrooms",
+      "outdoor ceremeony",
+      "indoor ceremony",
+      "fireworks",
     ],
   },
   comments: [String],
