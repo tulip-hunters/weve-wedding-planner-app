@@ -58,7 +58,7 @@ router.get("/my-reservations", isAuthenticated, (req, res, next) => {
     .populate("venue")
     .then((allReservations) => {
       if (allReservations.length === 0) {
-        res.status(200).json({ message: "Tere are no Reservations" });
+        res.status(200).json({ message: "There are no Reservations" });
       } else {
         res.json(allReservations);
       }
