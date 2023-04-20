@@ -38,7 +38,7 @@ To run in your computer, follow these steps:
 | GET       | /api/venue/:venued   | –                             | –                                                                 | Get venuedetails                                                                            |
 | POST      | /api/venues/:venueId | Authorization: Bearer `<jwt>` | –                                                                 | Add Comments and likes to the Venue(This functionality is restricted to owner of the venue) |
 | POST      | /api/upload          | Authorization: Bearer `<jwt>` | –                                                                 | Upload Images                                                                               |
-| PUT       | /api/venues/:venueId | Authorization: Bearer `<jwt>` | { title: String, description: String, tasks: Array }              | Update a venue(User can update only their own Venue)                                        |
+| PUT       | /api/venues/:venueId | Authorization: Bearer `<jwt>` | { name, description, address, price, capacity, imageUrl, offers } | Update a venue(User can update only their own Venue)                                        |
 | DELETE    | /api/venues/:venueId | Authorization: Bearer `<jwt>` | –                                                                 | Delete a venue (User can delete only their own Venue)   
 
 
