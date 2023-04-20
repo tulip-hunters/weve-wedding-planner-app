@@ -50,5 +50,5 @@ To run in your computer, follow these steps:
 | GET       | /api/reservations     | –                             | –                                                                           | Get all Reservations     |
 | GET       | /api//my-reservations | Authorization: Bearer `<jwt>` | –                                                                           | Get all user Reservations|
 
-##DEMO
+## DEMO
 Here is the link of deployed frontend React.js App by Netlify: [WeVe Wedding Venues](https://weve.netlify.app/)
